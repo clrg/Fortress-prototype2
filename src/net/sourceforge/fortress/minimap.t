@@ -37,7 +37,7 @@
         
         var moveMap = function() {
             // assumes minimap tiles are 1px by 1px
-            var m = surface.mouse;
+            var m = surface.frame.mouse;
             var nx = ox + m.x - mx;
             var ny = oy + m.y - my;
             nx = 0 > nx ? 0 : (nx > $minimap.width-1 ? $minimap.width-1 : nx);
@@ -52,21 +52,21 @@
         
         var releaseFunc = function(v) {
             cascade = v;
-            surface.delMoveTrap(moveMapFunc);
-            surface.Focused --= releaseFunc;
-            surface._Release1 --= releaseFunc;
+            surface.frame.Focused --= releaseFunc;
+            surface.event.delMoveTrap(moveMapFunc);
+            surface.event._Release1 --= releaseFunc;
         }
         
         var pressFunc = function(v) {
             cascade = v;
-            var m = surface.mouse;
+            var m = surface.frame.mouse;
             mx = m.x;
             my = m.y;
             ox = mouse.x;
             oy = mouse.y;
-            surface.addMoveTrap(moveMapFunc);
-            surface.Focused ++= releaseFunc;
-            surface._Release1 ++= releaseFunc;
+            surface.frame.Focused ++= releaseFunc;
+            surface.event.addMoveTrap(moveMapFunc);
+            surface.event._Release1 ++= releaseFunc;
             moveMap();
         }
         
